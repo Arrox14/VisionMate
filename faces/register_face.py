@@ -87,6 +87,7 @@ def register_face(name: str) -> None:
         name: The name of the person to register.
     """
     camera = None
+    frame_count = 0
     
     try:
         # Initialize webcam
@@ -101,10 +102,7 @@ def register_face(name: str) -> None:
         print("\nInstructions:")
         print("  - Press 'S' to save face")
         print("  - Press 'Q' to quit")
-        print("\nStarting live feed...\n")
-        
-        frame_count = 0
-        
+        print("\nStarting live feed...\n")        
         while True:
             success, frame = camera.read()
             
@@ -161,14 +159,13 @@ def register_face(name: str) -> None:
                     known_faces_dir = create_known_faces_directory()
                     
                     # Create file path
-                    face_path = known_faces_dir / f"{name}.jpg"
+                    face_path = known_faces_dir / f"{name}_{frame_count}.jpg"
                     
                     # Save the original frame (not the display frame)
                     cv2.imwrite(str(face_path), frame)
                     
                     frame_count += 1
-                    print(f"✓ Face registered successfully: {face_path}")
-                    
+                    print(f"✓ Face registered successfully: {face_path}")                    
                 except IOError as e:
                     print(f"Error: Failed to save face image. Details: {e}")
                 except Exception as e:
