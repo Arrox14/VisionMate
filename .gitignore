@@ -7,3 +7,5 @@ __pycache__/
 *.pt
 models/
 known_faces/
+
+database/*.json
