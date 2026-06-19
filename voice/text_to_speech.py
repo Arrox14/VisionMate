@@ -36,27 +36,27 @@ def _get_engine() -> Optional[object]:
         print(f"Warning: Unable to initialize text-to-speech engine: {exc}")
         return None
 
+import pyttsx3
+import time
 
 def speak(text: str) -> None:
-    """Speak the provided text using the configured speech engine.
-
-    Args:
-        text: The text to be spoken aloud.
-
-    Notes:
-        - The function is safe to call even if the engine is unavailable.
-        - It does not raise exceptions for initialization/runtime issues;
-          instead, it prints a warning and returns.
-    """
-    if not text or not text.strip():
-        return
-
-    engine = _get_engine()
-    if engine is None:
+    if not text:
         return
 
     try:
+        engine = pyttsx3.init()
+
+        engine.setProperty("rate", 170)
+        engine.setProperty("volume", 1.0)
+
         engine.say(text)
         engine.runAndWait()
+
+        time.sleep(0.5)
+
+        engine.stop()
+
+        del engine
+
     except Exception as exc:
-        print(f"Warning: Unable to speak text: {exc}")
+        print(f"TTS Error: {exc}")
