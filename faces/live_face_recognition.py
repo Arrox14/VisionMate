@@ -301,7 +301,14 @@ def recognize_faces(
                         now = time.time()
                         last_seen = last_memory_update.get(person_name, 0)
                         if now - last_seen >= COOLDOWN_SECONDS:
-                            update_person_seen(person_name)
+                            update_person_seen(
+                                person_name,
+                                confidence=float(similarity),
+                                location="live_scene",
+                                nearby_objects=[obj for obj in []],
+                                relationship="unknown",
+                                note=f"Recognized in live camera feed with similarity {similarity:.2f}",
+                            )
                             last_memory_update[person_name] = now
 
                         should_speak = (

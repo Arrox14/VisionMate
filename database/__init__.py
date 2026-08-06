@@ -1,3 +1,33 @@
-from .person_memory import get_person_seen_count, update_person_seen
+from .person_memory import (
+    PersonMemoryStore,
+    PersonProfile,
+    create_person,
+    get_all_people,
+    get_average_confidence,
+    get_person,
+    get_person_profile,
+    get_person_seen_count,
+    load_memory,
+    save_memory,
+    update_location,
+    update_nearby_objects,
+    update_person,
+    update_person_seen,
+)
 
-__all__ = ["get_person_seen_count", "update_person_seen"]
+__all__ = [
+    "PersonMemoryStore",
+    "PersonProfile",
+    "create_person",
+    "get_all_people",
+    "get_average_confidence",
+    "get_person",
+    "get_person_profile",
+    "get_person_seen_count",
+    "load_memory",
+    "save_memory",
+    "update_location",
+    "update_nearby_objects",
+    "update_person",
+    "update_person_seen",
+]

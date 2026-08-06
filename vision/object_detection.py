@@ -4,6 +4,7 @@ import traceback
 import cv2
 from ultralytics import YOLO
 
+from agent.runtime_pipeline import VisionMateRuntimePipeline
 from agent.scene_narrator import generate_scene_description
 from voice.text_to_speech import speak
 
@@ -79,6 +80,7 @@ def run_object_detection(camera_index: int = 0) -> None:
 
         pending_scene: tuple[str, ...] | None = None
         pending_scene_since = 0.0
+        runtime_pipeline = VisionMateRuntimePipeline()
 
         IMPORTANT_OBJECTS = {
             "person",
@@ -136,6 +138,14 @@ def run_object_detection(camera_index: int = 0) -> None:
                 description = generate_scene_description(
                     list(pending_scene)
                 )
+
+                runtime_decision = runtime_pipeline.process_detections(
+                    list(pending_scene),
+                    person_info={"name": "detected_user", "confidence": 0.8},
+                    scene_context="home",
+                )
+                if runtime_decision.narration:
+                    description = runtime_decision.narration
 
                 should_speak = False
 

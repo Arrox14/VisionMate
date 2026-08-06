@@ -9,3 +9,33 @@ models/
 known_faces/
 
 database/*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+.venv/
+venv/
+
+# Models (if downloadable)
+models/
+
+# Face database (private)
+known_faces/
+
+# Evaluation outputs
+evaluation/results/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
